@@ -1,0 +1,23 @@
+{
+  "name": "genesys-sdet-homework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hayee4/genesys-sdet-homework.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/hayee4/genesys-sdet-homework/issues"
+  },
+  "homepage": "https://github.com/hayee4/genesys-sdet-homework#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^24.8.0"
+  }
+}
