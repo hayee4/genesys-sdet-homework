@@ -24,7 +24,7 @@ export class SwagLabsProductsPage {
         const itemContainer = this.itemContainerByName(itemName);
         const addToCartButton = itemContainer.getByRole('button', { name: 'Add to cart' });
         await addToCartButton.click();
-        await expect(addToCartButton).toHaveText('Remove');
+        await expect(itemContainer.getByRole('button', { name: 'Remove' })).toBeVisible();
     }
 
     async checkCartBadgeByCount(expectedCount: number) {
