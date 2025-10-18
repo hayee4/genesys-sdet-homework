@@ -19,7 +19,10 @@ export const EXPECTED_MESSAGES = {
     ORDER_SUCCESS: {
         header: "Thank you for your order!",
         confirmation: "Your order has been dispatched"
-    }
+    },
+    ERROR_MESSAGES: {
+        MISSING_CREDENTIALS: "Epic sadface: Username is required"
+    }   
 }
 
 export const TEST_SCENARIOS = {
