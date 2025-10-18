@@ -1,15 +1,18 @@
 import {Page, Locator} from "@playwright/test";
+import { BasePage } from "../base-page";
 
-export class SwagLabsCheckoutCompletePage {
+export class SwagLabsCheckoutCompletePage extends BasePage {
 
-    readonly page: Page;
-    readonly completeTitle: Locator;
+    readonly title: Locator;
     readonly backHomeButton: Locator;
 
     constructor(page: Page) {
-        this.page = page;
-        this.completeTitle = page.locator('.title');
+        super(page, "https://www.saucedemo.com/checkout-complete.html");
+        this.title = page.locator('.title');
         this.backHomeButton = page.getByRole('button', { name: 'Back Home' });
     }
 
+    async waitForCheckoutCompletePageToLoad() {
+        await this.waitForElementVisible(this.title);
+    }
 }
