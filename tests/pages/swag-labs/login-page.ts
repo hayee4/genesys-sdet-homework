@@ -1,30 +1,31 @@
 import { Locator, Page } from '@playwright/test';
-import creds from '../../resources/swag-labs/credential.json';
+import { BasePage } from '../base-page';
 
-export class SwagLabsLoginPage {
+export class SwagLabsLoginPage extends BasePage {
 
-    readonly page: Page;
-    readonly header: Locator;
+    readonly headerText: Locator;
     readonly usernameInput: Locator;
     readonly passwordInput: Locator;
     readonly loginButton: Locator;
+    readonly errorMessage: Locator;
 
     constructor(page: Page) {
-        this.page = page;
-        this.header = page.locator('.login_logo');
+        super(page, 'https://www.saucedemo.com/');
+        this.headerText = page.locator('.login_logo');
         this.usernameInput = page.getByPlaceholder('Username');
-        this.passwordInput = page.locator('#password');
+        this.passwordInput = page.getByPlaceholder('Password');
         this.loginButton = page.getByRole('button', { name: 'Login' });
+        this.errorMessage = page.locator('[data-test="error"]');
     }
 
-    async goto() {
-        await this.page.goto('https://www.saucedemo.com');
-    }
-
-    async loginWithPerformanceGlitchUser() {
-        await this.usernameInput.fill(creds.username);
-        await this.passwordInput.fill(creds.password);
+    async login(username: string, password: string) {
+        await this.usernameInput.fill(username);
+        await this.passwordInput.fill(password);
         await this.loginButton.click();
+    }
+
+    async waitForLoginPageToLoad() {
+        await this.waitForElementVisible(this.headerText);
     }
 }
 
