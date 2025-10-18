@@ -6,6 +6,7 @@ import { SwagLabsCheckoutInformationPage } from './swag-labs/checkout-informatio
 import { SwagLabsCheckoutOverviewPage } from './swag-labs/checkout-overview-page';
 import { SwagLabsCheckoutCompletePage } from './swag-labs/checkout-complete-page';
 import { SwagLabsNavigationBarPage } from './swag-labs/navigation-bar-page';
+import { SwagLabsFooterPage } from './swag-labs/footer-page';
 
 export class SwagLabsPageFactory {
 
@@ -18,6 +19,7 @@ export class SwagLabsPageFactory {
     private _checkoutOverviewPage?: SwagLabsCheckoutOverviewPage;
     private _checkoutCompletePage?: SwagLabsCheckoutCompletePage;
     private _navigationBarPage?: SwagLabsNavigationBarPage;
+    private _footerPage?: SwagLabsFooterPage;
 
     constructor(page: Page) {
         this.page = page;
@@ -70,5 +72,12 @@ export class SwagLabsPageFactory {
             this._navigationBarPage = new SwagLabsNavigationBarPage(this.page);
         }
         return this._navigationBarPage;
+    }
+
+    get footer(): SwagLabsFooterPage {
+        if (!this._footerPage) {
+            this._footerPage = new SwagLabsFooterPage(this.page);
+        }
+        return this._footerPage;
     }
 }
