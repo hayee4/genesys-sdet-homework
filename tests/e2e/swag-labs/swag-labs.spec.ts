@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { SwagLabsPageFactory } from '../../pages/page-factory';
+import { SwagLabsPageFactory } from '../../pages/swag-labs/page-factory';
 import creds from '../../resources/swag-labs/credentials.json';
 import { CUSTOMER_INFO, EXPECTED_MESSAGES, TEST_SCENARIOS, FOOTER_INFO } from '../../resources/swag-labs/test-data';
 
