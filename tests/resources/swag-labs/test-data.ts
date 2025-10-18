@@ -15,9 +15,15 @@ export const CUSTOMER_INFO = {
     }
 }
 
+export const EXPECTED_MESSAGES = {
+    ORDER_SUCCESS: {
+        header: "Thank you for your order!",
+        confirmation: "Your order has been dispatched"
+    }
+}
+
 export const TEST_SCENARIOS = {
     TWO_ITEM_PURCHASE: {
-        items: [SWAG_LABS_ITEMS.BACKPACK, SWAG_LABS_ITEMS.FLEECE_JACKET],
-        description: "Purchase Backpack and Fleece Jacket"
+        items: [SWAG_LABS_ITEMS.BACKPACK, SWAG_LABS_ITEMS.FLEECE_JACKET]
     }
 }
