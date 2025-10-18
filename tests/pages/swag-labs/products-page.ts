@@ -1,21 +1,17 @@
-import { Locator, Page, expect } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
+import { BasePage } from '../base-page';
 
-export class SwagLabsProductsPage {
+export class SwagLabsProductsPage extends BasePage {
 
-    readonly page: Page;
-    readonly productsTitle: Locator;
-    readonly sauceLabsBackpack: Locator;
-    readonly sauceLabsFleeceJacket: Locator;
+    readonly title: Locator;
     readonly cartIcon: Locator;
     readonly cartBadge: Locator;
 
     itemContainerByName = (itemName: string) => this.page.locator('.inventory_item').filter({ hasText: itemName });
 
     constructor(page: Page) {
-        this.page = page;
-        this.productsTitle = page.locator('.title');
-        this.sauceLabsBackpack = page.getByText('Sauce Labs Backpack');
-        this.sauceLabsFleeceJacket = page.getByText('Sauce Labs Fleece Jacket');
+        super(page, "https://www.saucedemo.com/inventory.html");
+        this.title = page.locator('.title');
         this.cartIcon = page.locator('.shopping_cart_link');
         this.cartBadge = page.locator('.shopping_cart_badge');
     }
@@ -24,14 +20,23 @@ export class SwagLabsProductsPage {
         const itemContainer = this.itemContainerByName(itemName);
         const addToCartButton = itemContainer.getByRole('button', { name: 'Add to cart' });
         await addToCartButton.click();
-        await expect(itemContainer.getByRole('button', { name: 'Remove' })).toBeVisible();
     }
 
-    async checkCartBadgeByCount(expectedCount: number) {
-        await expect(this.cartBadge).toHaveText(expectedCount.toString());
+    async getCartBadgeCount(): Promise<number> {
+        try {
+            await this.cartBadge.waitFor({ state: 'visible' });
+            const text = await this.cartBadge.textContent();
+            return text ? parseInt(text) : 0;
+        } catch {
+            return 0;
+        }
     }
 
     async proceedToCheckout() {
         await this.cartIcon.click();
+    }
+
+    async waitForProductsPageToLoad() {
+        await this.waitForElementVisible(this.title);
     }
 }
