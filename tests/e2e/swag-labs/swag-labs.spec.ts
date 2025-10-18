@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
-import { SwagLabsLoginPage } from '../../pages/swag-labs/SwagLabsLoginPage';
-import { SwagLabsProductsPage } from '../../pages/swag-labs/SwagLabsProductsPage';
-import { SwagLabsCartPage } from '../../pages/swag-labs/SwagLabsCartPage';
+import { SwagLabsLoginPage } from '../../pages/swag-labs/login-page';
+import { SwagLabsProductsPage } from '../../pages/swag-labs/products-page';
+import { SwagLabsCartPage } from '../../pages/swag-labs/cart-page';
 
 
 test.describe('Swag Labs Test Suite', () => {
