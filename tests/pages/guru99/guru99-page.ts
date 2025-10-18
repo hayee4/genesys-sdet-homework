@@ -21,8 +21,4 @@ export class Guru99MainPage extends BasePage {
     async waitForGuru99PageToLoad() {
         await this.waitForElementVisible(this.title);
     }
-
-    async waitForSubMenuToLoad() {
-        await this.waitForElementVisible(this.seleniumLink);
-    }
 }
