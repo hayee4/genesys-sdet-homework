@@ -3,11 +3,13 @@ import { BasePage } from "../base-page";
 
 export class SwagLabsNavbar extends BasePage {
 
+    readonly headerText: Locator;
     readonly cartIcon: Locator;
     readonly cartBadge: Locator;
 
     constructor(page: Page) {
         super(page);
+        this.headerText = page.locator('.app_logo');
         this.cartIcon = page.locator('.shopping_cart_link');
         this.cartBadge = page.locator('.shopping_cart_badge');
     }
