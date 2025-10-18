@@ -12,6 +12,10 @@ export class SwagLabsCheckoutOverviewPage extends BasePage {
         this.finishButton = page.getByRole('button', { name: 'Finish' });
     }
 
+    async getItemByName(itemName: string): Promise<Locator> {
+        return this.page.locator(`.cart_item:has-text("${itemName}")`);
+    }
+
     async waitForCheckoutOverviewPageToLoad() {
         await this.waitForElementVisible(this.title);
     }
