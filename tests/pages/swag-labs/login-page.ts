@@ -4,8 +4,8 @@ import { BasePage } from '../base-page';
 export class SwagLabsLoginPage extends BasePage {
 
     readonly headerText: Locator;
-    readonly usernameInput: Locator;
-    readonly passwordInput: Locator;
+    readonly usernameInput?: Locator;
+    readonly passwordInput?: Locator;
     readonly loginButton: Locator;
     readonly errorMessage: Locator;
 
@@ -18,10 +18,19 @@ export class SwagLabsLoginPage extends BasePage {
         this.errorMessage = page.locator('[data-test="error"]');
     }
 
-    async login(username: string, password: string) {
-        await this.usernameInput.fill(username);
-        await this.passwordInput.fill(password);
+    async login(username?: string, password?: string) {
+        if (username != undefined) {
+            await this.usernameInput?.fill(username);
+        }
+
+        if (password != undefined) {
+            await this.passwordInput?.fill(password);
+        }
         await this.loginButton.click();
+    }
+
+    async waitForErrorMessageToBeVisible() {
+        await this.waitForElementVisible(this.errorMessage);
     }
 
     async waitForLoginPageToLoad() {
