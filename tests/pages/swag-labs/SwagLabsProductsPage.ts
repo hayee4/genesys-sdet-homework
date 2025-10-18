@@ -30,4 +30,8 @@ export class SwagLabsProductsPage {
     async checkCartBadgeByCount(expectedCount: number) {
         await expect(this.cartBadge).toHaveText(expectedCount.toString());
     }
+
+    async proceedToCheckout() {
+        await this.cartIcon.click();
+    }
 }
