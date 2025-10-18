@@ -1,12 +1,12 @@
 import { Page } from '@playwright/test';
-import { SwagLabsLoginPage } from './swag-labs/login-page';
-import { SwagLabsProductsPage } from './swag-labs/products-page';
-import { SwagLabsCartPage } from './swag-labs/cart-page';
-import { SwagLabsCheckoutInformationPage } from './swag-labs/checkout-information-page';
-import { SwagLabsCheckoutOverviewPage } from './swag-labs/checkout-overview-page';
-import { SwagLabsCheckoutCompletePage } from './swag-labs/checkout-complete-page';
-import { SwagLabsNavigationBarPage } from './swag-labs/navigation-bar-page';
-import { SwagLabsFooterPage } from './swag-labs/footer-page';
+import { SwagLabsLoginPage } from './login-page';
+import { SwagLabsProductsPage } from './products-page';
+import { SwagLabsCartPage } from './cart-page';
+import { SwagLabsCheckoutInformationPage } from './checkout-information-page';
+import { SwagLabsCheckoutOverviewPage } from './checkout-overview-page';
+import { SwagLabsCheckoutCompletePage } from './checkout-complete-page';
+import { SwagLabsNavigationBarPage } from './navigation-bar-page';
+import { SwagLabsFooterPage } from './footer-page';
 
 export class SwagLabsPageFactory {
 
