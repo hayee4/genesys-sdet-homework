@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { SwagLabsPageFactory } from '../../pages/page-factory';
-import creds from '../../resources/swag-labs/credential_performance_glitch_user.json';
-import { CUSTOMER_INFO, TEST_SCENARIOS, EXPECTED_MESSAGES } from '../../resources/swag-labs/test-data';
+import creds from '../../resources/swag-labs/credentials.json';
+import { CUSTOMER_INFO, EXPECTED_MESSAGES, TEST_SCENARIOS, FOOTER_INFO } from '../../resources/swag-labs/test-data';
 
 
 test.describe('Swag Labs Test Suite', () => {
@@ -17,8 +17,8 @@ test.describe('Swag Labs Test Suite', () => {
     test('Automate Purchase Process - Test Case 1', async ({ page }) => {
         const pages = new SwagLabsPageFactory(page);
 
-        // === Login Step ===
-        await pages.login.login(creds.username, creds.password);
+        // === Login with Performance Glitch User ===
+        await pages.login.login(creds.users.performance_glitch_user.username, creds.users.performance_glitch_user.password);
         await pages.products.waitForProductsPageToLoad();
         await expect(page).toHaveURL(pages.products.url!);
 
@@ -67,4 +67,27 @@ test.describe('Swag Labs Test Suite', () => {
         await pages.products.waitForProductsPageToLoad();
         await expect(page).toHaveURL(pages.products.url!);
     });
+
+    test('Verify error messages for mandatory fields - Test Case 2', async ({ page }) => {
+        const pages = new SwagLabsPageFactory(page);
+
+        // === Try to login without credentials ===
+        await pages.login.login();
+
+        // === Verify error message is displayed ===
+        await pages.login.waitForErrorMessageToBeVisible();
+        await expect(pages.login.errorMessage).toHaveText(EXPECTED_MESSAGES.ERROR_MESSAGES.MISSING_CREDENTIALS);
+
+        // === Login with Standard User ===
+        await pages.login.login(creds.users.standard_user.username, creds.users.standard_user.password);
+        await pages.products.waitForProductsPageToLoad();
+        await expect(page).toHaveURL(pages.products.url!);
+
+        // === Scroll down to bottom of the page ===
+        await page.locator('.footer').scrollIntoViewIfNeeded();
+
+        // === Validate the footer message ===
+        await expect(pages.footer.footerText).toContainText(FOOTER_INFO.YEAR);
+        await expect(pages.footer.footerText).toContainText(FOOTER_INFO.TERMS_OF_SERVICE);
+    }); 
 });
