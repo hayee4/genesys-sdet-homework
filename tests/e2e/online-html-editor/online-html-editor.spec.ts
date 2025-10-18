@@ -11,7 +11,7 @@ test.describe('Online HTML Editor Test Suite', () => {
         // === Navigate to Online HTML Editor ===
         await editorPage.goto();
         await editorPage.waitForEditorToLoad();
-        expect(page.url()).toBe(editorPage.url!);
+        await expect(page).toHaveURL(editorPage.url!);
     });
 
     test('Should format text correctly with bold, underline, and plain formatting', async ({ page }) => {
