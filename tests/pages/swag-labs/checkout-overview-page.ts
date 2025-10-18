@@ -1,15 +1,18 @@
 import {Page, Locator} from "@playwright/test";
+import { BasePage } from "../base-page";
 
-export class SwagLabsCheckoutOverviewPage {
+export class SwagLabsCheckoutOverviewPage extends BasePage {
 
-    readonly page: Page;
-    readonly overviewTitle: Locator;
-    readonly finishButton: Locator; 
+    readonly title: Locator;
+    readonly finishButton: Locator;
 
     constructor(page: Page) {
-        this.page = page;
-        this.overviewTitle = page.locator('.title');
+        super(page, "https://www.saucedemo.com/checkout-step-two.html");
+        this.title = page.locator('.title');
         this.finishButton = page.getByRole('button', { name: 'Finish' });
     }
 
+    async waitForCheckoutOverviewPageToLoad() {
+        await this.waitForElementVisible(this.title);
+    }
 }
