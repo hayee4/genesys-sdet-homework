@@ -22,7 +22,12 @@ export const EXPECTED_MESSAGES = {
     },
     ERROR_MESSAGES: {
         MISSING_CREDENTIALS: "Epic sadface: Username is required"
-    }   
+    },
+}
+
+export const FOOTER_INFO = {
+    YEAR: "2025",
+    TERMS_OF_SERVICE: "Terms of Service"
 }
 
 export const TEST_SCENARIOS = {
