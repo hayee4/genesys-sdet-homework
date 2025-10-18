@@ -1,17 +1,17 @@
 import {Page, Locator} from "@playwright/test";
+import { BasePage } from "../base-page";
 
-export class SwagLabsCheckoutInformationPage {
+export class SwagLabsCheckoutInformationPage extends BasePage {
 
-    readonly page: Page;
-    readonly checkoutTitle: Locator;
+    readonly title: Locator;
     readonly firstNameInput: Locator;
     readonly lastNameInput: Locator;
     readonly postalCodeInput: Locator;
     readonly continueButton: Locator;
 
     constructor(page: Page) {
-        this.page = page;
-        this.checkoutTitle = page.locator('.title');
+        super(page, "https://www.saucedemo.com/checkout-step-one.html");
+        this.title = page.locator('.title');
         this.firstNameInput = page.getByPlaceholder('First Name');
         this.lastNameInput = page.getByPlaceholder('Last Name');
         this.postalCodeInput = page.getByPlaceholder('Zip/Postal Code');
@@ -25,4 +25,7 @@ export class SwagLabsCheckoutInformationPage {
         await this.continueButton.click();
     }
 
+    async waitForCheckoutInformationPageToLoad() {
+        await this.waitForElementVisible(this.title);
+    }
 }
