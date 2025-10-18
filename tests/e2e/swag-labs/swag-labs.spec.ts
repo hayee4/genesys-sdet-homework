@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test';
 import { SwagLabsLoginPage } from '../../pages/swag-labs/SwagLabsLoginPage';
 import { SwagLabsProductsPage } from '../../pages/swag-labs/SwagLabsProductsPage';
+import { SwagLabsCartPage } from '../../pages/swag-labs/SwagLabsCartPage';
+
 
 test.describe('Swag Labs Test Suite', () => {
     test.beforeEach(async ({ page }) => {
@@ -13,6 +15,7 @@ test.describe('Swag Labs Test Suite', () => {
     test('Automate Purchase Process - Test Case 1', async ({ page }) => {
         const loginPage = new SwagLabsLoginPage(page);
         const productsPage = new SwagLabsProductsPage(page);
+        const cartPage = new SwagLabsCartPage(page);
         await loginPage.loginWithPerformanceGlitchUser();
         await expect(productsPage.productsTitle).toBeVisible();
         const items = [
@@ -23,6 +26,7 @@ test.describe('Swag Labs Test Suite', () => {
         for (const item of items) {
             await productsPage.addItemToCartByName(item);
             await productsPage.checkCartBadgeByCount(++count);
-        }   
+        }
+        await productsPage.proceedToCheckout();
     });
 });
