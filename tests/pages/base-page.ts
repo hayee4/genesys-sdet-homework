@@ -1,4 +1,4 @@
-import { Page, Locator } from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 
 export class BasePage {
 
@@ -12,7 +12,7 @@ export class BasePage {
 
     async goto() {
         if (this.url) {
-            await this.page.goto(this.url);
+            await this.page.goto(this.url, { waitUntil: 'domcontentloaded' });
         }
     }
 
