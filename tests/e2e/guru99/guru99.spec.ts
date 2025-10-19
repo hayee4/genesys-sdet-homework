@@ -26,7 +26,7 @@ test.describe('Guru99 Test Suite', () => {
         ]);
 
         // === Wait for the new page to load ===
-        await newPage.waitForLoadState('domcontentloaded');
+        await newPage.waitForLoadState('networkidle');
 
         // === Verify the new page title contains expected text ===
         await expect(newPage).toHaveTitle(GURU99_TEST_DATA.EXPECTED_TITLES.SELENIUM_LIVE_PROJECT);
