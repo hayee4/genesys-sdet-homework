@@ -3,6 +3,7 @@ import { Guru99MainPage } from '../../pages/guru99/guru99-page';
 import { SeleniumTutorialPage } from '../../pages/guru99/selenium-tutorial';
 import { GURU99_TEST_DATA } from '../../resources/guru99/test-data';
 
+
 test.describe('Guru99 Test Suite', () => {
     let mainPage: Guru99MainPage;
     let seleniumPage: SeleniumTutorialPage;
@@ -25,7 +26,7 @@ test.describe('Guru99 Test Suite', () => {
         ]);
 
         // === Wait for the new page to load ===
-        await newPage.waitForLoadState('networkidle');
+        await newPage.waitForLoadState('domcontentloaded');
 
         // === Verify the new page title contains expected text ===
         await expect(newPage).toHaveTitle(GURU99_TEST_DATA.EXPECTED_TITLES.SELENIUM_LIVE_PROJECT);
