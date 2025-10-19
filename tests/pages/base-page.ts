@@ -12,7 +12,7 @@ export class BasePage {
 
     async goto() {
         if (this.url) {
-            await this.page.goto(this.url, { waitUntil: 'domcontentloaded' });
+            await this.page.goto(this.url, { waitUntil: 'domcontentloaded', timeout: 60000 });
         }
     }
 
