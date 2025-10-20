@@ -1,8 +1,7 @@
-import {Page, Locator} from "@playwright/test";
-import { BasePage } from "../base-page";
+import { Locator, Page } from '@playwright/test';
+import { BasePage } from '../base-page';
 
 export class SwagLabsCheckoutInformationPage extends BasePage {
-
     readonly title: Locator;
     readonly firstNameInput: Locator;
     readonly lastNameInput: Locator;
@@ -10,7 +9,7 @@ export class SwagLabsCheckoutInformationPage extends BasePage {
     readonly continueButton: Locator;
 
     constructor(page: Page) {
-        super(page, "https://www.saucedemo.com/checkout-step-one.html");
+        super(page, 'https://www.saucedemo.com/checkout-step-one.html');
         this.title = page.locator('.title');
         this.firstNameInput = page.getByPlaceholder('First Name');
         this.lastNameInput = page.getByPlaceholder('Last Name');

@@ -9,9 +9,8 @@ import { SwagLabsNavigationBarPage } from './navigation-bar-page';
 import { SwagLabsFooterPage } from './footer-page';
 
 export class SwagLabsPageFactory {
-
     readonly page: Page;
-    
+
     private _loginPage?: SwagLabsLoginPage;
     private _productsPage?: SwagLabsProductsPage;
     private _cartPage?: SwagLabsCartPage;

@@ -1,8 +1,7 @@
-import { Locator, Page } from "@playwright/test";
-import { BasePage } from "../base-page";
+import { Locator, Page } from '@playwright/test';
+import { BasePage } from '../base-page';
 
 export class SwagLabsNavigationBarPage extends BasePage {
-
     readonly headerText: Locator;
     readonly cartIcon: Locator;
     readonly cartBadge: Locator;

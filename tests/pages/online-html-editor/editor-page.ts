@@ -2,7 +2,6 @@ import { Locator, Page } from '@playwright/test';
 import { BasePage } from '../base-page';
 
 export class OnlineHtmlEditorPage extends BasePage {
-
     readonly editorFrame: Locator;
     readonly boldButton: Locator;
     readonly underlineButton: Locator;

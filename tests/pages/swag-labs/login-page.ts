@@ -2,7 +2,6 @@ import { Locator, Page } from '@playwright/test';
 import { BasePage } from '../base-page';
 
 export class SwagLabsLoginPage extends BasePage {
-
     readonly headerText: Locator;
     readonly usernameInput?: Locator;
     readonly passwordInput?: Locator;
@@ -37,4 +36,3 @@ export class SwagLabsLoginPage extends BasePage {
         await this.waitForElementVisible(this.headerText);
     }
 }
-

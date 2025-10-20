@@ -2,7 +2,6 @@ import { Locator, Page } from '@playwright/test';
 import { BasePage } from '../base-page';
 
 export class SwagLabsFooterPage extends BasePage {
-
     readonly footer: Locator;
     readonly footerText: Locator;
 
@@ -16,4 +15,4 @@ export class SwagLabsFooterPage extends BasePage {
         await this.footer.waitFor({ state: 'visible' });
         return this.footerText.textContent();
     }
-}   
+}

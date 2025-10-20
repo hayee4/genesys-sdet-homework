@@ -2,13 +2,13 @@ import { Locator, Page } from '@playwright/test';
 import { BasePage } from '../base-page';
 
 export class SwagLabsProductsPage extends BasePage {
-
     readonly title: Locator;
 
-    itemContainerByName = (itemName: string) => this.page.locator('.inventory_item').filter({ hasText: itemName });
+    itemContainerByName = (itemName: string) =>
+        this.page.locator('.inventory_item').filter({ hasText: itemName });
 
     constructor(page: Page) {
-        super(page, "https://www.saucedemo.com/inventory.html");
+        super(page, 'https://www.saucedemo.com/inventory.html');
         this.title = page.locator('.title');
     }
 

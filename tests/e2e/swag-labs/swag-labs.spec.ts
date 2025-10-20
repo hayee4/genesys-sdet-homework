@@ -1,10 +1,14 @@
 import { expect, test } from '@playwright/test';
 import { SwagLabsPageFactory } from '../../pages/swag-labs/page-factory';
 import creds from '../../resources/swag-labs/credentials.json';
-import { CUSTOMER_INFO, EXPECTED_MESSAGES, FOOTER_INFO, TEST_SCENARIOS } from '../../resources/swag-labs/test-data';
+import {
+    CUSTOMER_INFO,
+    EXPECTED_MESSAGES,
+    FOOTER_INFO,
+    TEST_SCENARIOS,
+} from '../../resources/swag-labs/test-data';
 
-
-test.describe('Swag Labs Test Suite', {tag: ['@swag-labs', '@e2e']}, () => {
+test.describe('Swag Labs Test Suite', { tag: ['@swag-labs', '@e2e'] }, () => {
     let swagLabs: SwagLabsPageFactory;
 
     test.beforeEach(async ({ page }) => {
@@ -18,7 +22,10 @@ test.describe('Swag Labs Test Suite', {tag: ['@swag-labs', '@e2e']}, () => {
 
     test('Should complete end-to-end purchase flow with two items', async ({ page }) => {
         // === Login with Performance Glitch User ===
-        await swagLabs.login.login(creds.users.performance_glitch_user.username, creds.users.performance_glitch_user.password);
+        await swagLabs.login.login(
+            creds.users.performance_glitch_user.username,
+            creds.users.performance_glitch_user.password
+        );
         await swagLabs.products.waitForProductsPageToLoad();
         await expect(page).toHaveURL(swagLabs.products.url!);
 
@@ -64,8 +71,12 @@ test.describe('Swag Labs Test Suite', {tag: ['@swag-labs', '@e2e']}, () => {
         await swagLabs.checkoutOverview.finishButton.click();
         await swagLabs.checkoutComplete.waitForCheckoutCompletePageToLoad();
         await expect(page).toHaveURL(swagLabs.checkoutComplete.url!);
-        await expect(swagLabs.checkoutComplete.completeHeader).toHaveText(EXPECTED_MESSAGES.ORDER_SUCCESS.header);
-        await expect(swagLabs.checkoutComplete.completeText).toContainText(EXPECTED_MESSAGES.ORDER_SUCCESS.confirmation);
+        await expect(swagLabs.checkoutComplete.completeHeader).toHaveText(
+            EXPECTED_MESSAGES.ORDER_SUCCESS.header
+        );
+        await expect(swagLabs.checkoutComplete.completeText).toContainText(
+            EXPECTED_MESSAGES.ORDER_SUCCESS.confirmation
+        );
 
         // === Return to Products Page ===
         await swagLabs.checkoutComplete.backHomeButton.click();
@@ -79,10 +90,15 @@ test.describe('Swag Labs Test Suite', {tag: ['@swag-labs', '@e2e']}, () => {
 
         // === Verify error message is displayed ===
         await swagLabs.login.waitForErrorMessageToBeVisible();
-        await expect(swagLabs.login.errorMessage).toHaveText(EXPECTED_MESSAGES.ERROR_MESSAGES.MISSING_CREDENTIALS);
+        await expect(swagLabs.login.errorMessage).toHaveText(
+            EXPECTED_MESSAGES.ERROR_MESSAGES.MISSING_CREDENTIALS
+        );
 
         // === Login with Standard User ===
-        await swagLabs.login.login(creds.users.standard_user.username, creds.users.standard_user.password);
+        await swagLabs.login.login(
+            creds.users.standard_user.username,
+            creds.users.standard_user.password
+        );
         await swagLabs.products.waitForProductsPageToLoad();
         await expect(page).toHaveURL(swagLabs.products.url!);
 
