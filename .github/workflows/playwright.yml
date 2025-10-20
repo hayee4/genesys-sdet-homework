@@ -117,26 +117,48 @@ jobs:
         name: api-test-report
         path: api-report/
 
-    - name: Download E2E test reports (all browsers)
+    - name: Download E2E test reports (Chromium)
       uses: actions/download-artifact@v4
+      continue-on-error: true
       with:
-        pattern: e2e-test-report-*
-        path: e2e-reports/
-        merge-multiple: true
+        name: e2e-test-report-chromium
+        path: e2e-chromium-report/
+
+    - name: Download E2E test reports (Firefox)
+      uses: actions/download-artifact@v4
+      continue-on-error: true
+      with:
+        name: e2e-test-report-firefox
+        path: e2e-firefox-report/
+
+    - name: Download E2E test reports (WebKit)
+      uses: actions/download-artifact@v4
+      continue-on-error: true
+      with:
+        name: e2e-test-report-webkit
+        path: e2e-webkit-report/
         
     - name: Prepare combined Pages site
       run: |
           mkdir -p site/${{ github.run_number }}/api
-          mkdir -p site/${{ github.run_number }}/e2e
+          mkdir -p site/${{ github.run_number }}/e2e/chromium
+          mkdir -p site/${{ github.run_number }}/e2e/firefox
+          mkdir -p site/${{ github.run_number }}/e2e/webkit
           
           # Copy API report
           if [ -d "api-report" ]; then
             cp -r api-report/* site/${{ github.run_number }}/api/
           fi
           
-          # Copy E2E reports 
-          if [ -d "e2e-reports" ]; then
-            cp -r e2e-reports/* site/${{ github.run_number }}/e2e/
+          # Copy each browser report to separate folders
+          if [ -d "e2e-chromium-report" ]; then
+            cp -r e2e-chromium-report/* site/${{ github.run_number }}/e2e/chromium/
+          fi
+          if [ -d "e2e-firefox-report" ]; then
+            cp -r e2e-firefox-report/* site/${{ github.run_number }}/e2e/firefox/
+          fi
+          if [ -d "e2e-webkit-report" ]; then
+            cp -r e2e-webkit-report/* site/${{ github.run_number }}/e2e/webkit/
           fi
           
           # Create navigation index
@@ -151,21 +173,37 @@ jobs:
                                 background: #f5f5f5; text-decoration: none; 
                                 border-radius: 5px; color: #333; }
                   .report-link:hover { background: #e0e0e0; }
+                  .browser-reports { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px; }
+                  .browser-link { display: block; padding: 15px; background: #e8f4fd; 
+                                 text-decoration: none; border-radius: 5px; color: #333; text-align: center; }
+                  .browser-link:hover { background: #d1e7dd; }
                   h1 { color: #333; }
-                  .browsers { font-size: 0.9em; color: #666; }
+                  h2 { color: #666; margin-top: 30px; }
               </style>
           </head>
           <body>
               <h1>Playwright Test Reports - Run ${{ github.run_number }}</h1>
+              
               <a href="api/" class="report-link">
                   <strong>📡 API Tests Report</strong><br>
                   View API test results and coverage
               </a>
-              <a href="e2e/" class="report-link">
-                  <strong>🌐 E2E Tests Report</strong><br>
-                  <span class="browsers">Cross-browser results: Chrome, Firefox, Safari</span><br>
-                  View end-to-end test results and screenshots
-              </a>
+              
+              <h2>🌐 E2E Test Reports by Browser</h2>
+              <div class="browser-reports">
+                  <a href="e2e/chromium/" class="browser-link">
+                      <strong>🟢 Chromium</strong><br>
+                      Chrome/Edge tests
+                  </a>
+                  <a href="e2e/firefox/" class="browser-link">
+                      <strong>🟠 Firefox</strong><br>
+                      Gecko engine tests
+                  </a>
+                  <a href="e2e/webkit/" class="browser-link">
+                      <strong>🔵 WebKit</strong><br>
+                      Safari tests
+                  </a>
+              </div>
           </body>
           </html>
           EOF
