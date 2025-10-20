@@ -103,7 +103,7 @@ test.describe('Swag Labs Test Suite', { tag: ['@swag-labs', '@e2e'] }, () => {
         await expect(page).toHaveURL(swagLabs.products.url!);
 
         // === Scroll down to bottom of the page ===
-        await page.locator('.footer').scrollIntoViewIfNeeded();
+        await swagLabs.footer.footer.scrollIntoViewIfNeeded();
 
         // === Validate the footer message ===
         await expect(swagLabs.footer.footerText).toContainText(FOOTER_INFO.YEAR);
