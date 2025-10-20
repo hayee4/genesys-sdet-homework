@@ -13,7 +13,7 @@ export class SwagLabsNavigationBarPage extends BasePage {
         this.cartBadge = page.locator('.shopping_cart_badge');
     }
 
-    async getCartBadgeCount(): Promise<number> {
+    async getCartBadgeCount() {
         try {
             const isVisible = await this.cartBadge.isVisible();
             if (!isVisible) {

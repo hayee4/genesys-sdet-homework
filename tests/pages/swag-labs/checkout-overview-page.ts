@@ -1,4 +1,4 @@
-import { Page, Locator } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 import { BasePage } from '../base-page';
 
 export class SwagLabsCheckoutOverviewPage extends BasePage {
@@ -11,7 +11,7 @@ export class SwagLabsCheckoutOverviewPage extends BasePage {
         this.finishButton = page.getByRole('button', { name: 'Finish' });
     }
 
-    async getItemByName(itemName: string): Promise<Locator> {
+    async getItemByName(itemName: string) {
         return this.page.locator(`.cart_item:has-text("${itemName}")`);
     }
 

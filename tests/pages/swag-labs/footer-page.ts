@@ -11,7 +11,7 @@ export class SwagLabsFooterPage extends BasePage {
         this.footerText = page.locator('.footer_copy');
     }
 
-    async getFooterText(): Promise<string | null> {
+    async getFooterText() {
         await this.footer.waitFor({ state: 'visible' });
         return this.footerText.textContent();
     }
