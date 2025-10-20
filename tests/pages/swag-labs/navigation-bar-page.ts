@@ -17,7 +17,6 @@ export class SwagLabsNavigationBarPage extends BasePage {
         try {
             const isVisible = await this.cartBadge.isVisible();
             if (!isVisible) {
-                // Badge not visible means cart is empty
                 return 0;
             }
             const text = await this.cartBadge.textContent();
