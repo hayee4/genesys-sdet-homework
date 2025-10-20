@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { OnlineHtmlEditorPage } from '../../pages/online-html-editor/editor-page';
 import { EXPECTED_HTML, TEST_TEXT } from '../../resources/online-html-editor/test-data';
 
-test.describe('Online HTML Editor Test Suite', () => {
+test.describe('Online HTML Editor Test Suite', {tag: ['@online-html-editor', '@e2e']}, () => {
     let editorPage: OnlineHtmlEditorPage;
 
     test.beforeEach(async ({ page }) => {
@@ -14,7 +14,7 @@ test.describe('Online HTML Editor Test Suite', () => {
         await expect(page).toHaveURL(editorPage.url!);
     });
 
-    test('Should format text correctly with bold, underline, and plain formatting @online-html-editor @e2e', async ({ page }) => {
+    test('Should format text correctly with bold, underline, and plain formatting', async ({ page }) => {
         // === Type 'Automation' with bold formatting ===
         await editorPage.setFormatToBold();
         await editorPage.typeTextInEditor(TEST_TEXT.BOLD);
