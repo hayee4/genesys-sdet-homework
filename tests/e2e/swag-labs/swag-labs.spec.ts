@@ -22,14 +22,19 @@ test.describe('Swag Labs Test Suite', {tag: ['@swag-labs', '@e2e']}, () => {
         await swagLabs.products.waitForProductsPageToLoad();
         await expect(page).toHaveURL(swagLabs.products.url!);
 
+        // === Verify Cart Badge Count Before Adding Items ===
+        let cartBadgeCount;
+        cartBadgeCount = await swagLabs.navigationBar.getCartBadgeCount();
+        expect(cartBadgeCount).toBe(0);
+
         // === Add Items to Cart ===
         for (const item of TEST_SCENARIOS.TWO_ITEM_PURCHASE.items) {
             await swagLabs.products.addItemToCartByName(item);
         }
 
-        // === Verify Cart Badge Count ===
+        // === Verify Cart Badge Count After Adding Items ===
         const expectedItemCount = TEST_SCENARIOS.TWO_ITEM_PURCHASE.items.length;
-        const cartBadgeCount = await swagLabs.navigationBar.getCartBadgeCount();
+        cartBadgeCount = await swagLabs.navigationBar.getCartBadgeCount();
         expect(cartBadgeCount).toBe(expectedItemCount);
 
         // === Proceed to Checkout ===
