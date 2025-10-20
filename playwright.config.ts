@@ -34,18 +34,31 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    // API Tests - No browser needed, fast execution
+    {
+      name: 'api-tests',
+      testMatch: /.*api.*\.spec\.ts/,
+      use: {
+        // No browser setup for API tests
+      },
+    },
+
+    // E2E Tests - Browser dependent
     {
       name: 'chromium',
+      testIgnore: /.*api.*\.spec\.ts/,
       use: { ...devices['Desktop Chrome'] },
     },
 
     {
       name: 'firefox',
+      testIgnore: /.*api.*\.spec\.ts/,
       use: { ...devices['Desktop Firefox'] },
     },
 
     {
       name: 'webkit',
+      testIgnore: /.*api.*\.spec\.ts/,
       use: { ...devices['Desktop Safari'] },
     },
 

@@ -17,7 +17,7 @@ concurrency:
 jobs:
   api-tests:
     name: Run API Tests
-    timeout-minutes: 30
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -31,11 +31,8 @@ jobs:
     - name: Install dependencies
       run: npm ci
       
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-      
     - name: Run API tests
-      run: npx playwright test --grep "@api"
+      run: npx playwright test --grep "@api" --project=api-tests
 
     - name: Upload API test report
       uses: actions/upload-artifact@v4
@@ -46,10 +43,14 @@ jobs:
         retention-days: 30
 
   e2e-tests:
-    name: Run E2E Tests
+    name: Run E2E Tests (${{ matrix.browser }})
     timeout-minutes: 60
     runs-on: ubuntu-latest
     needs: api-tests
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -65,14 +66,14 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
       
-    - name: Run E2E tests
-      run: npx playwright test --grep "@e2e"
+    - name: Run E2E tests on ${{ matrix.browser }}
+      run: npx playwright test --grep "@e2e" --project=${{ matrix.browser }}
 
-    - name: Upload E2E test report
+    - name: Upload E2E test report (${{ matrix.browser }})
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
-        name: e2e-test-report
+        name: e2e-test-report-${{ matrix.browser }}
         path: playwright-report/
         retention-days: 30
 
@@ -97,23 +98,26 @@ jobs:
         name: api-test-report
         path: api-report/
 
-    - name: Download E2E test report
+    - name: Download E2E test reports (all browsers)
       uses: actions/download-artifact@v4
       with:
-        name: e2e-test-report
-        path: e2e-report/
+        pattern: e2e-test-report-*
+        path: e2e-reports/
+        merge-multiple: true
         
     - name: Prepare combined Pages site
       run: |
           mkdir -p site/${{ github.run_number }}/api
           mkdir -p site/${{ github.run_number }}/e2e
           
-          # Copy reports to separate folders
+          # Copy API report
           if [ -d "api-report" ]; then
             cp -r api-report/* site/${{ github.run_number }}/api/
           fi
-          if [ -d "e2e-report" ]; then
-            cp -r e2e-report/* site/${{ github.run_number }}/e2e/
+          
+          # Copy E2E reports 
+          if [ -d "e2e-reports" ]; then
+            cp -r e2e-reports/* site/${{ github.run_number }}/e2e/
           fi
           
           # Create navigation index
@@ -129,6 +133,7 @@ jobs:
                                 border-radius: 5px; color: #333; }
                   .report-link:hover { background: #e0e0e0; }
                   h1 { color: #333; }
+                  .browsers { font-size: 0.9em; color: #666; }
               </style>
           </head>
           <body>
@@ -139,6 +144,7 @@ jobs:
               </a>
               <a href="e2e/" class="report-link">
                   <strong>🌐 E2E Tests Report</strong><br>
+                  <span class="browsers">Cross-browser results: Chrome, Firefox, Safari</span><br>
                   View end-to-end test results and screenshots
               </a>
           </body>
