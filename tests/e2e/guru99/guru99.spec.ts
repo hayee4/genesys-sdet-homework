@@ -17,10 +17,7 @@ test.describe('Guru99 Test Suite', { tag: ['@guru99', '@e2e'] }, () => {
         await expect(page).toHaveURL(mainPage.url!);
     });
 
-    test('Should click iframe to open new tab and navigate to Selenium tutorial', async ({
-        page,
-        context,
-    }) => {
+    test('Should click iframe to open new tab and navigate to Selenium tutorial', async ({ page, context }) => {
         // === Click the iframe above the e-mail submission field to open new tab ===
         const [newPage] = await Promise.all([
             context.waitForEvent('page', { timeout: 60000 }),
