@@ -16,7 +16,7 @@ test.describe('Swag Labs Test Suite', () => {
         await expect(page).toHaveURL(swagLabs.login.url!);
     });
 
-    test('Should complete end-to-end purchase flow with two items', async ({ page }) => {
+    test('[@swag-labs][@e2e]Should complete end-to-end purchase flow with two items', async ({ page }) => {
         // === Login with Performance Glitch User ===
         await swagLabs.login.login(creds.users.performance_glitch_user.username, creds.users.performance_glitch_user.password);
         await swagLabs.products.waitForProductsPageToLoad();
@@ -68,7 +68,7 @@ test.describe('Swag Labs Test Suite', () => {
         await expect(page).toHaveURL(swagLabs.products.url!);
     });
 
-    test('Should validate login error messages and footer information', async ({ page }) => {
+    test('[@swag-labs][@e2e]Should validate login error messages and footer information', async ({ page }) => {
         // === Try to login without credentials ===
         await swagLabs.login.login();
 

@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import type { User } from '../../types/json-placeholder/types';
 
-test('REST API testing: GET /users', async ({ request }) => {
+test('[@json-placeholder][@api]REST API testing: GET /users', async ({ request }) => {
     // === Send GET request to /users endpoint ===
     const response = await request.get('https://jsonplaceholder.typicode.com/users');
     expect(response.status()).toBe(200);
