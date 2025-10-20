@@ -15,23 +15,23 @@ export class OnlineHtmlEditorPage extends BasePage {
         this.removeFormatButton = page.getByRole('button', { name: 'Remove Format' });
     }
 
-    async waitForEditorToLoad(): Promise<void> {
+    async waitForEditorToLoad() {
         await this.waitForElementVisible(this.editorFrame);
     }
 
-    async typeTextInEditor(text: string): Promise<void> {
+    async typeTextInEditor(text: string) {
         await this.editorFrame.pressSequentially(text);
     }
 
-    async setFormatToBold(): Promise<void> {
+    async setFormatToBold() {
         await this.boldButton.click();
     }
 
-    async setFormatToUnderlined(): Promise<void> {
+    async setFormatToUnderlined() {
         await this.underlineButton.click();
     }
 
-    async resetFormat(): Promise<void> {
+    async resetFormat() {
         await this.removeFormatButton.click();
     }
 }
