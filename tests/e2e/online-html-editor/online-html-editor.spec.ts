@@ -14,7 +14,7 @@ test.describe('Online HTML Editor Test Suite', () => {
         await expect(page).toHaveURL(editorPage.url!);
     });
 
-    test('[@online-html-editor][@e2e]Should format text correctly with bold, underline, and plain formatting', async ({ page }) => {
+    test('Should format text correctly with bold, underline, and plain formatting @online-html-editor @e2e', async ({ page }) => {
         // === Type 'Automation' with bold formatting ===
         await editorPage.setFormatToBold();
         await editorPage.typeTextInEditor(TEST_TEXT.BOLD);
