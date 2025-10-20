@@ -1,4 +1,4 @@
-import { Page, Locator } from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 import { BasePage } from "../base-page";
 
 export class SwagLabsNavigationBarPage extends BasePage {
@@ -16,10 +16,15 @@ export class SwagLabsNavigationBarPage extends BasePage {
 
     async getCartBadgeCount(): Promise<number> {
         try {
-            await this.cartBadge.waitFor({ state: 'visible' });
+            const isVisible = await this.cartBadge.isVisible();
+            if (!isVisible) {
+                // Badge not visible means cart is empty
+                return 0;
+            }
             const text = await this.cartBadge.textContent();
-            return text ? parseInt(text) : 0;
-        } catch {
+            return parseInt(text || '0') || 0;
+        } catch (error) {
+            console.log('Error getting cart badge count:', error);
             return 0;
         }
     }
