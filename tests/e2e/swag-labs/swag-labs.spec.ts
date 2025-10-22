@@ -40,13 +40,12 @@ test.describe('Swag Labs Test Suite', { tag: ['@swag-labs', '@e2e'] }, () => {
         expect(cartBadgeCount).toBe(expectedItemCount);
 
         // === Proceed to Checkout ===
-        await swagLabs.navigationBar.cartIcon.click();
         await swagLabs.navigationBar.proceedToCheckout();
         await swagLabs.cart.waitForCartPageToLoad();
         await expect(page).toHaveURL(swagLabs.cart.getUrl()!);
 
         // === Checkout Process ===
-        await swagLabs.cart.checkoutButton.click();
+        await swagLabs.cart.beginCheckout();
         await swagLabs.checkoutInfo.waitForCheckoutInformationPageToLoad();
         await expect(page).toHaveURL(swagLabs.checkoutInfo.getUrl()!);
 
@@ -63,16 +62,16 @@ test.describe('Swag Labs Test Suite', { tag: ['@swag-labs', '@e2e'] }, () => {
         for (const expectedItem of TEST_SCENARIOS.TWO_ITEM_PURCHASE.items) {
             await expect(await swagLabs.checkoutOverview.getItemByName(expectedItem)).toBeVisible();
         }
-        await swagLabs.checkoutOverview.finishButton.click();
+        await swagLabs.checkoutOverview.completeOrder();
         await swagLabs.checkoutComplete.waitForCheckoutCompletePageToLoad();
         await expect(page).toHaveURL(swagLabs.checkoutComplete.getUrl()!);
-        await expect(swagLabs.checkoutComplete.completeHeader).toHaveText(EXPECTED_MESSAGES.ORDER_SUCCESS.header);
-        await expect(swagLabs.checkoutComplete.completeText).toContainText(
+        expect(await swagLabs.checkoutComplete.getCompleteHeader()).toContain(EXPECTED_MESSAGES.ORDER_SUCCESS.header);
+        expect(await swagLabs.checkoutComplete.getCompleteText()).toContain(
             EXPECTED_MESSAGES.ORDER_SUCCESS.confirmation
         );
 
         // === Return to Products Page ===
-        await swagLabs.checkoutComplete.backHomeButton.click();
+        await swagLabs.checkoutComplete.returnToProductsPage();
         await swagLabs.products.waitForProductsPageToLoad();
         await expect(page).toHaveURL(swagLabs.products.getUrl()!);
     });
@@ -83,7 +82,7 @@ test.describe('Swag Labs Test Suite', { tag: ['@swag-labs', '@e2e'] }, () => {
 
         // === Verify error message is displayed ===
         await swagLabs.login.waitForErrorMessageToBeVisible();
-        await expect(swagLabs.login.errorMessage).toHaveText(EXPECTED_MESSAGES.ERROR_MESSAGES.MISSING_CREDENTIALS);
+        expect(await swagLabs.login.getErrorMessageText()).toBe(EXPECTED_MESSAGES.ERROR_MESSAGES.MISSING_CREDENTIALS);
 
         // === Login with Standard User ===
         await swagLabs.login.login(creds.users.standard_user.username, creds.users.standard_user.password);
@@ -91,10 +90,10 @@ test.describe('Swag Labs Test Suite', { tag: ['@swag-labs', '@e2e'] }, () => {
         await expect(page).toHaveURL(swagLabs.products.getUrl()!);
 
         // === Scroll down to bottom of the page ===
-        await swagLabs.footer.footer.scrollIntoViewIfNeeded();
+        await swagLabs.footer.scrollIntoFooterMessageViewIfNeeded();
 
         // === Validate the footer message ===
-        await expect(swagLabs.footer.footerText).toContainText(FOOTER_INFO.YEAR);
-        await expect(swagLabs.footer.footerText).toContainText(FOOTER_INFO.TERMS_OF_SERVICE);
+        expect(await swagLabs.footer.getFooterText()).toContain(FOOTER_INFO.YEAR);
+        expect(await swagLabs.footer.getFooterText()).toContain(FOOTER_INFO.TERMS_OF_SERVICE);
     });
 });
