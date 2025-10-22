@@ -35,14 +35,14 @@ test.describe('Online HTML Editor Test Suite', { tag: ['@online-html-editor', '@
         await editorPage.typeTextInEditor(TEST_TEXT.PLAIN);
 
         // === Verify text content contains all expected words ===
-        const actualTextContent = await editorPage.editorFrame.textContent();
+        const actualTextContent = await editorPage.getEditorFrameText();
 
         expect(actualTextContent).toContain(TEST_TEXT.BOLD);
         expect(actualTextContent).toContain(TEST_TEXT.UNDERLINED);
         expect(actualTextContent).toContain(TEST_TEXT.PLAIN);
 
         // === Verify HTML formatting is applied correctly ===
-        const editorContent = await editorPage.editorFrame.innerHTML();
+        const editorContent = await editorPage.getEditorFrameInnerHTML();
 
         expect(editorContent).toContain(EXPECTED_HTML.BOLD_TAG);
         expect(editorContent).toContain(EXPECTED_HTML.UNDERLINED_TAG);
