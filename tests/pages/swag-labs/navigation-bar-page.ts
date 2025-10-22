@@ -7,8 +7,8 @@ export class SwagLabsNavigationBarPage extends BasePage {
 
     constructor(page: Page) {
         super(page);
-        this.cartIcon = page.locator('.shopping_cart_link');
-        this.cartBadge = page.locator('.shopping_cart_badge');
+        this.cartIcon = this.page.locator('.shopping_cart_link');
+        this.cartBadge = this.page.locator('.shopping_cart_badge');
     }
 
     public async getCartBadgeCount() {
