@@ -9,74 +9,74 @@ import { SwagLabsNavigationBarPage } from './navigation-bar-page';
 import { SwagLabsProductsPage } from './products-page';
 
 export class SwagLabsPageFactory {
-    readonly page: Page;
+    private readonly page: Page;
 
-    private _loginPage?: SwagLabsLoginPage;
-    private _productsPage?: SwagLabsProductsPage;
-    private _cartPage?: SwagLabsCartPage;
-    private _checkoutInfoPage?: SwagLabsCheckoutInformationPage;
-    private _checkoutOverviewPage?: SwagLabsCheckoutOverviewPage;
-    private _checkoutCompletePage?: SwagLabsCheckoutCompletePage;
-    private _navigationBarPage?: SwagLabsNavigationBarPage;
-    private _footerPage?: SwagLabsFooterPage;
+    private loginPage?: SwagLabsLoginPage;
+    private productsPage?: SwagLabsProductsPage;
+    private cartPage?: SwagLabsCartPage;
+    private checkoutInfoPage?: SwagLabsCheckoutInformationPage;
+    private checkoutOverviewPage?: SwagLabsCheckoutOverviewPage;
+    private checkoutCompletePage?: SwagLabsCheckoutCompletePage;
+    private navigationBarPage?: SwagLabsNavigationBarPage;
+    private footerPage?: SwagLabsFooterPage;
 
     constructor(page: Page) {
         this.page = page;
     }
 
-    get login() {
-        if (!this._loginPage) {
-            this._loginPage = new SwagLabsLoginPage(this.page);
+    public get login() {
+        if (!this.loginPage) {
+            this.loginPage = new SwagLabsLoginPage(this.page);
         }
-        return this._loginPage;
+        return this.loginPage;
     }
 
-    get products() {
-        if (!this._productsPage) {
-            this._productsPage = new SwagLabsProductsPage(this.page);
+    public get products() {
+        if (!this.productsPage) {
+            this.productsPage = new SwagLabsProductsPage(this.page);
         }
-        return this._productsPage;
+        return this.productsPage;
     }
 
-    get cart() {
-        if (!this._cartPage) {
-            this._cartPage = new SwagLabsCartPage(this.page);
+    public get cart() {
+        if (!this.cartPage) {
+            this.cartPage = new SwagLabsCartPage(this.page);
         }
-        return this._cartPage;
+        return this.cartPage;
     }
 
-    get checkoutInfo() {
-        if (!this._checkoutInfoPage) {
-            this._checkoutInfoPage = new SwagLabsCheckoutInformationPage(this.page);
+    public get checkoutInfo() {
+        if (!this.checkoutInfoPage) {
+            this.checkoutInfoPage = new SwagLabsCheckoutInformationPage(this.page);
         }
-        return this._checkoutInfoPage;
+        return this.checkoutInfoPage;
     }
 
-    get checkoutOverview() {
-        if (!this._checkoutOverviewPage) {
-            this._checkoutOverviewPage = new SwagLabsCheckoutOverviewPage(this.page);
+    public get checkoutOverview() {
+        if (!this.checkoutOverviewPage) {
+            this.checkoutOverviewPage = new SwagLabsCheckoutOverviewPage(this.page);
         }
-        return this._checkoutOverviewPage;
+        return this.checkoutOverviewPage;
     }
 
-    get checkoutComplete() {
-        if (!this._checkoutCompletePage) {
-            this._checkoutCompletePage = new SwagLabsCheckoutCompletePage(this.page);
+    public get checkoutComplete() {
+        if (!this.checkoutCompletePage) {
+            this.checkoutCompletePage = new SwagLabsCheckoutCompletePage(this.page);
         }
-        return this._checkoutCompletePage;
+        return this.checkoutCompletePage;
     }
 
-    get navigationBar() {
-        if (!this._navigationBarPage) {
-            this._navigationBarPage = new SwagLabsNavigationBarPage(this.page);
+    public get navigationBar() {
+        if (!this.navigationBarPage) {
+            this.navigationBarPage = new SwagLabsNavigationBarPage(this.page);
         }
-        return this._navigationBarPage;
+        return this.navigationBarPage;
     }
 
-    get footer() {
-        if (!this._footerPage) {
-            this._footerPage = new SwagLabsFooterPage(this.page);
+    public get footer() {
+        if (!this.footerPage) {
+            this.footerPage = new SwagLabsFooterPage(this.page);
         }
-        return this._footerPage;
+        return this.footerPage;
     }
 }
