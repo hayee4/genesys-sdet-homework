@@ -2,36 +2,44 @@ import { Locator, Page } from '@playwright/test';
 import { BasePage } from '../base-page';
 
 export class OnlineHtmlEditorPage extends BasePage {
-    readonly editorFrame: Locator;
-    readonly boldButton: Locator;
-    readonly underlineButton: Locator;
-    readonly removeFormatButton: Locator;
+    private readonly editorFrame: Locator;
+    private readonly boldButton: Locator;
+    private readonly underlineButton: Locator;
+    private readonly removeFormatButton: Locator;
 
     constructor(page: Page) {
         super(page, 'https://onlinehtmleditor.dev');
-        this.editorFrame = page.locator('.ck-editor__editable[role="textbox"]');
-        this.boldButton = page.getByRole('button', { name: 'Bold' });
-        this.underlineButton = page.getByRole('button', { name: 'Underline' });
-        this.removeFormatButton = page.getByRole('button', { name: 'Remove Format' });
+        this.editorFrame = this.page.locator('.ck-editor__editable[role="textbox"]');
+        this.boldButton = this.page.getByRole('button', { name: 'Bold' });
+        this.underlineButton = this.page.getByRole('button', { name: 'Underline' });
+        this.removeFormatButton = this.page.getByRole('button', { name: 'Remove Format' });
     }
 
-    async waitForEditorToLoad() {
+    public async getEditorFrameText() {
+        return this.editorFrame.textContent();
+    }
+
+    public async getEditorFrameInnerHTML() {
+        return this.editorFrame.innerHTML();
+    }
+
+    public async waitForEditorToLoad() {
         await this.waitForElementVisible(this.editorFrame);
     }
 
-    async typeTextInEditor(text: string) {
+    public async typeTextInEditor(text: string) {
         await this.editorFrame.pressSequentially(text);
     }
 
-    async setFormatToBold() {
+    public async setFormatToBold() {
         await this.boldButton.click();
     }
 
-    async setFormatToUnderlined() {
+    public async setFormatToUnderlined() {
         await this.underlineButton.click();
     }
 
-    async resetFormat() {
+    public async resetFormat() {
         await this.removeFormatButton.click();
     }
 }
