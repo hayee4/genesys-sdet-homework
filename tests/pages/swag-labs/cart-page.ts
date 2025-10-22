@@ -1,17 +1,21 @@
-import { Page, Locator } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 import { BasePage } from '../base-page';
 
 export class SwagLabsCartPage extends BasePage {
-    readonly title: Locator;
-    readonly checkoutButton: Locator;
+    private readonly title: Locator;
+    private readonly checkoutButton: Locator;
 
     constructor(page: Page) {
         super(page, 'https://www.saucedemo.com/cart.html');
-        this.title = page.locator('.title');
-        this.checkoutButton = page.getByRole('button', { name: 'Checkout' });
+        this.title = this.page.locator('.title');
+        this.checkoutButton = this.page.getByRole('button', { name: 'Checkout' });
     }
 
-    async waitForCartPageToLoad() {
+    public async beginCheckout() {
+        await this.checkoutButton.click();
+    }
+
+    public async waitForCartPageToLoad() {
         await this.waitForElementVisible(this.title);
     }
 }
