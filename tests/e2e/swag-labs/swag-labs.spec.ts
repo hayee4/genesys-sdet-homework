@@ -93,7 +93,8 @@ test.describe('Swag Labs Test Suite', { tag: ['@swag-labs', '@e2e'] }, () => {
         await swagLabs.footer.scrollIntoFooterMessageViewIfNeeded();
 
         // === Validate the footer message ===
-        expect(await swagLabs.footer.getFooterText()).toContain(FOOTER_INFO.YEAR);
-        expect(await swagLabs.footer.getFooterText()).toContain(FOOTER_INFO.TERMS_OF_SERVICE);
+        const footerText = await swagLabs.footer.getFooterText();
+        expect(footerText).toContain(FOOTER_INFO.YEAR);
+        expect(footerText).toContain(FOOTER_INFO.TERMS_OF_SERVICE);
     });
 });
