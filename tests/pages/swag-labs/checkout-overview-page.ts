@@ -15,7 +15,7 @@ export class SwagLabsCheckoutOverviewPage extends BasePage {
         return this.page.locator(`.cart_item:has-text("${itemName}")`);
     }
 
-    public async clickFinishButton() {
+    public async completeOrder() {
         await this.finishButton.click();
     }
 
