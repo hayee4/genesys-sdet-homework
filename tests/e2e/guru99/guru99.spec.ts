@@ -14,7 +14,7 @@ test.describe('Guru99 Test Suite', { tag: ['@guru99', '@e2e'] }, () => {
         // === Navigate to Guru99 Home Page ===
         await mainPage.goto();
         await mainPage.waitForGuru99PageToLoad();
-        await expect(page).toHaveURL(mainPage.url!);
+        await expect(page).toHaveURL(mainPage.getUrl()!);
     });
 
     test('Should click iframe to open new tab and navigate to Selenium tutorial', async ({ page, context }) => {
@@ -33,7 +33,7 @@ test.describe('Guru99 Test Suite', { tag: ['@guru99', '@e2e'] }, () => {
         // === Close the new tab and return to original page ===
         await newPage.close();
         await mainPage.waitForGuru99PageToLoad();
-        await expect(page).toHaveURL(mainPage.url!);
+        await expect(page).toHaveURL(mainPage.getUrl()!);
 
         // === Find Selenium in Testing menu ===
         await mainPage.testingLink.hover();
