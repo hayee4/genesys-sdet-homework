@@ -7,8 +7,8 @@ export class SwagLabsFooterPage extends BasePage {
 
     constructor(page: Page) {
         super(page);
-        this.footer = page.locator('footer');
-        this.footerText = page.locator('.footer_copy');
+        this.footer = this.page.locator('footer');
+        this.footerText = this.page.locator('.footer_copy');
     }
 
     public async scrollIntoFooterMessageViewIfNeeded() {
