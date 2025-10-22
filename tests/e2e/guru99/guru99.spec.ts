@@ -19,10 +19,7 @@ test.describe('Guru99 Test Suite', { tag: ['@guru99', '@e2e'] }, () => {
 
     test('Should click iframe to open new tab and navigate to Selenium tutorial', async ({ page, context }) => {
         // === Click the iframe above the e-mail submission field to open new tab ===
-        const [newPage] = await Promise.all([
-            context.waitForEvent('page', { timeout: 60000 }),
-            mainPage.iFrame.click(),
-        ]);
+        const [newPage] = await Promise.all([context.waitForEvent('page', { timeout: 60000 }), mainPage.clickIframe()]);
 
         // === Wait for the new page to load ===
         await newPage.waitForLoadState('networkidle');
@@ -36,11 +33,11 @@ test.describe('Guru99 Test Suite', { tag: ['@guru99', '@e2e'] }, () => {
         await expect(page).toHaveURL(mainPage.getUrl()!);
 
         // === Find Selenium in Testing menu ===
-        await mainPage.testingLink.hover();
-        await mainPage.seleniumLink.click();
+        await mainPage.hoverOverTestingMenuItem();
+        await mainPage.clickSeleniumSubMenuItem();
         await seleniumPage.waitForSeleniumTutorialPageToLoad();
 
-        // === Wait for Submit Button to be visible ===
-        await expect(seleniumPage.submitButton).toBeVisible();
+        // === Verify Submit Button is visible ===
+        expect(await seleniumPage.isSubmitButtonVisible()).toBe(true);
     });
 });
