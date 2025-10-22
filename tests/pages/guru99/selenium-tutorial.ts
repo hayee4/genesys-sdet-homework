@@ -1,17 +1,21 @@
-import { Page, Locator } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 import { BasePage } from '../base-page';
 
 export class SeleniumTutorialPage extends BasePage {
-    readonly title: Locator;
-    readonly submitButton: Locator;
+    private readonly title: Locator;
+    private readonly submitButton: Locator;
 
     constructor(page: Page) {
         super(page, 'https://www.guru99.com/selenium-tutorial.html');
-        this.title = page.locator('h1');
-        this.submitButton = page.locator('button[type="submit"]');
+        this.title = this.page.locator('h1');
+        this.submitButton = this.page.locator('button[type="submit"]');
     }
 
-    async waitForSeleniumTutorialPageToLoad() {
+    public async waitForSeleniumTutorialPageToLoad() {
         await this.waitForElementVisible(this.title);
+    }
+
+    public async isSubmitButtonVisible() {
+        return await this.submitButton.isVisible();
     }
 }
