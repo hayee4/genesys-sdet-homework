@@ -2,18 +2,16 @@ import { Locator, Page } from '@playwright/test';
 import { BasePage } from '../base-page';
 
 export class SwagLabsNavigationBarPage extends BasePage {
-    readonly headerText: Locator;
-    readonly cartIcon: Locator;
-    readonly cartBadge: Locator;
+    private readonly cartIcon: Locator;
+    private readonly cartBadge: Locator;
 
     constructor(page: Page) {
         super(page);
-        this.headerText = page.locator('.app_logo');
         this.cartIcon = page.locator('.shopping_cart_link');
         this.cartBadge = page.locator('.shopping_cart_badge');
     }
 
-    async getCartBadgeCount() {
+    public async getCartBadgeCount() {
         try {
             const isVisible = await this.cartBadge.isVisible();
             if (!isVisible) {
@@ -27,7 +25,7 @@ export class SwagLabsNavigationBarPage extends BasePage {
         }
     }
 
-    async proceedToCheckout() {
+    public async proceedToCheckout() {
         await this.cartIcon.click();
     }
 }
