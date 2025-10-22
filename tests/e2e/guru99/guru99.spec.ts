@@ -21,9 +21,6 @@ test.describe('Guru99 Test Suite', { tag: ['@guru99', '@e2e'] }, () => {
         // === Click the iframe above the e-mail submission field to open new tab ===
         const [newPage] = await Promise.all([context.waitForEvent('page', { timeout: 60000 }), mainPage.clickIframe()]);
 
-        // === Wait for the new page to load ===
-        await newPage.waitForLoadState('networkidle');
-
         // === Verify the new page title contains expected text ===
         await expect(newPage).toHaveTitle(GURU99_TEST_DATA.EXPECTED_TITLES.SELENIUM_LIVE_PROJECT);
 
