@@ -18,6 +18,7 @@ export class Guru99MainPage extends BasePage {
     }
 
     public async clickIframe() {
+        await this.waitForIFrameToLoad();
         await this.iFrame.click();
     }
 
@@ -31,5 +32,10 @@ export class Guru99MainPage extends BasePage {
 
     public async waitForGuru99PageToLoad() {
         await this.waitForElementVisible(this.title);
+    }
+
+    public async waitForIFrameToLoad() {
+        await this.page.waitForLoadState('domcontentloaded');
+        await this.waitForElementVisible(this.iFrame);
     }
 }
